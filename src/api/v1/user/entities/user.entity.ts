@@ -49,6 +49,9 @@ export class UserEntity {
   @Column({ type: 'varchar', length: 15 })
   ipReq: string;
 
-  @Column({ type: 'bit', name: 'flg_elm' })
+  @Column({ type: 'boolean', name: 'flg_elm' })
   flgElm: boolean;
+
+  //TODO ignore
+  token: string;
 }

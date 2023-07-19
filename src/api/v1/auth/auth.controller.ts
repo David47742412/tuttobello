@@ -1,32 +1,31 @@
-import { Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { JwtGuard } from './guards/jwt.guard';
+import { Request, Response } from 'express';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post()
-  create() {
-    return this.authService.create();
+  @Post('login')
+  async create(@Res() res: Response, @Body() userLogin: LoginDto) {
+    const response = await this.authService.login(userLogin);
+    res.statusCode = response.statusCode;
+    res.send(response);
   }
 
-  @Get()
-  findAll() {
-    return this.authService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string) {
-    return this.authService.update(+id);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
+  @UseGuards(JwtGuard)
+  @Get('profile')
+  findAll(@Req() req: Request) {
+    return req.user;
   }
 }

@@ -18,10 +18,28 @@ export class UserModel {
     if (!validEmail())
       return await this._repository.findOne({
         where: { username: emailOrUsername },
+        select: [
+          'email',
+          'name',
+          'password',
+          'usrId',
+          'username',
+          'numDoc',
+          'lastName',
+        ],
       });
 
     return await this._repository.findOne({
       where: { email: emailOrUsername },
+      select: [
+        'email',
+        'name',
+        'password',
+        'usrId',
+        'username',
+        'numDoc',
+        'lastName',
+      ],
     });
   }
 }
