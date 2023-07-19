@@ -23,25 +23,25 @@ export class CategoryEntity {
   description: string;
 
   @CreateDateColumn({ type: 'datetime', name: 'fch_cre', nullable: true })
-  fchCre: string;
+  fchCre?: string;
 
   @CreateDateColumn({ type: 'datetime', name: 'fch_mod', nullable: true })
   @UpdateDateColumn({ type: 'datetime', name: 'fch_mod', nullable: true })
-  fchMod: string;
+  fchMod?: string;
 
   @Column({ type: 'varchar', name: 'wks_cre', length: 50 })
-  wksCre: string;
+  wksCre?: string;
 
   @Column({ type: 'varchar', name: 'wks_mod', length: 50 })
-  wksMod: string;
+  wksMod?: string;
 
   @Column({ type: 'varchar', length: 15 })
-  ipReq: string;
+  ipReq?: string;
 
   @Column({ type: 'boolean', name: 'flg_elm', default: false })
-  flgElm: boolean;
+  flgElm?: boolean;
 
   //TODO relations
   @OneToMany(() => BookDetailEntity, (dBook) => dBook.category)
-  bookDetail: BookDetailEntity[];
+  bookDetail?: BookDetailEntity[];
 }

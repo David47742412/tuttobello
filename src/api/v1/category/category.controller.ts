@@ -1,18 +1,18 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
   Req,
   Res,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { Response, Request } from 'express';
+import { Request, Response } from 'express';
 import { getIpAndWks } from '../../../const/external.function';
 
 @Controller('category')
@@ -23,12 +23,9 @@ export class CategoryController {
   async create(
     @Req() req: Request,
     @Body() createCategoryDto: CreateCategoryDto,
-    @Res() res: Response,
   ) {
     getIpAndWks(createCategoryDto, req);
-    const response = await this.categoryService.create(createCategoryDto);
-    res.statusCode = response.statusCode;
-    res.send(response);
+    return this.categoryService.create(createCategoryDto);
   }
 
   @Get()
