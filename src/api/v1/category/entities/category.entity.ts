@@ -7,17 +7,15 @@ import {
 } from 'typeorm';
 import { BookDetailEntity } from '../../book-detail/entities/book-detail.entity';
 
-@Entity({ name: 'book' })
-export class BookEntity {
+@Entity({ name: 'category' })
+export class CategoryEntity {
   @PrimaryColumn({
     type: 'varchar',
     length: 36,
-    primaryKeyConstraintName: 'pk_book_id',
+    primaryKeyConstraintName: 'pk_category_id',
+    name: 'category_id',
   })
-  bookId: string;
-
-  @Column({ type: 'nvarchar', length: 200 })
-  name: string;
+  categoryId: string;
 
   @Column({ type: 'nvarchar', length: 500 })
   description: string;
@@ -41,6 +39,6 @@ export class BookEntity {
   flgElm: boolean;
 
   //TODO relations
-  @OneToMany(() => BookDetailEntity, (bDetail) => bDetail.book)
+  @OneToMany(() => BookDetailEntity, (dBook) => dBook.category)
   bookDetail: BookDetailEntity[];
 }

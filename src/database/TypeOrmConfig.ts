@@ -2,6 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { UserEntity } from '../api/v1/user/entities/user.entity';
+import { BookEntity } from '../api/v1/book/entities/book.entity';
+import { CategoryEntity } from '../api/v1/category/entities/category.entity';
+import { BookDetailEntity } from '../api/v1/book-detail/entities/book-detail.entity';
 
 @Injectable()
 export class TypeOrmConfig {
@@ -17,7 +20,7 @@ export class TypeOrmConfig {
       database: this.config.get<string>('database.name'),
       synchronize: true,
       logger: 'simple-console',
-      entities: [UserEntity],
+      entities: [UserEntity, BookEntity, CategoryEntity, BookDetailEntity],
     };
   }
 }

@@ -1,4 +1,12 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
+import { BookDetailEntity } from '../../book-detail/entities/book-detail.entity';
 
 @Entity({ name: 'user' })
 export class UserEntity {
@@ -54,4 +62,8 @@ export class UserEntity {
 
   //TODO ignore
   token: string;
+
+  //TODO relations
+  @OneToMany(() => BookDetailEntity, (dBook) => dBook.user)
+  bookDetail: BookDetailEntity[];
 }
