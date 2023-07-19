@@ -4,8 +4,10 @@ import {
   Entity,
   OneToMany,
   PrimaryColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { BookDetailEntity } from '../../book-detail/entities/book-detail.entity';
+import { UpdateCategoryDto } from '../dto/update-category.dto';
 
 @Entity({ name: 'category' })
 export class CategoryEntity {
@@ -20,10 +22,11 @@ export class CategoryEntity {
   @Column({ type: 'nvarchar', length: 500 })
   description: string;
 
-  @CreateDateColumn({ type: 'datetime', name: 'fch_cre' })
+  @CreateDateColumn({ type: 'datetime', name: 'fch_cre', nullable: true })
   fchCre: string;
 
-  @CreateDateColumn({ type: 'datetime', name: 'fch_mod' })
+  @CreateDateColumn({ type: 'datetime', name: 'fch_mod', nullable: true })
+  @UpdateDateColumn({ type: 'datetime', name: 'fch_mod', nullable: true })
   fchMod: string;
 
   @Column({ type: 'varchar', name: 'wks_cre', length: 50 })
@@ -35,7 +38,7 @@ export class CategoryEntity {
   @Column({ type: 'varchar', length: 15 })
   ipReq: string;
 
-  @Column({ type: 'boolean', name: 'flg_elm' })
+  @Column({ type: 'boolean', name: 'flg_elm', default: false })
   flgElm: boolean;
 
   //TODO relations

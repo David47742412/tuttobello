@@ -6,7 +6,6 @@ import { CategoryEntity } from '../../category/entities/category.entity';
 @Entity({ name: 'book_detail' })
 export class BookDetailEntity {
   //TODO obligatorio para el orm
-
   @PrimaryGeneratedColumn({ name: 'book_detail_id' })
   bookDetailId: number;
 

@@ -4,6 +4,7 @@ import {
   Entity,
   OneToMany,
   PrimaryColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { BookDetailEntity } from '../../book-detail/entities/book-detail.entity';
 
@@ -22,10 +23,10 @@ export class BookEntity {
   @Column({ type: 'nvarchar', length: 500 })
   description: string;
 
-  @CreateDateColumn({ type: 'datetime', name: 'fch_cre' })
+  @CreateDateColumn({ type: 'datetime', name: 'fch_cre', nullable: true })
   fchCre: string;
 
-  @CreateDateColumn({ type: 'datetime', name: 'fch_mod' })
+  @UpdateDateColumn({ type: 'datetime', name: 'fch_mod', nullable: true })
   fchMod: string;
 
   @Column({ type: 'varchar', name: 'wks_cre', length: 50 })
@@ -37,7 +38,7 @@ export class BookEntity {
   @Column({ type: 'varchar', length: 15 })
   ipReq: string;
 
-  @Column({ type: 'boolean', name: 'flg_elm' })
+  @Column({ type: 'boolean', name: 'flg_elm', default: false })
   flgElm: boolean;
 
   //TODO relations
