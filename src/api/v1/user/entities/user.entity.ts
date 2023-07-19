@@ -16,11 +16,11 @@ export class UserEntity {
   @Column({ type: 'varchar', length: 100, name: 'last_name' })
   lastName: string;
 
+  @Column({ type: 'varchar', length: 50, unique: true })
+  username: string;
+
   @Column({ type: 'varchar', length: 100, unique: true })
   email: string;
-
-  @Column({ name: 'type_doc_id', length: 36 })
-  typeDocId: string;
 
   @Column({ name: 'num_doc', length: 11, unique: true })
   numDoc: string;
@@ -45,6 +45,9 @@ export class UserEntity {
 
   @Column({ type: 'varchar', name: 'wks_mod', length: 50 })
   wksMod: string;
+
+  @Column({ type: 'varchar', length: 15 })
+  ipReq: string;
 
   @Column({ type: 'bit', name: 'flg_elm' })
   flgElm: boolean;
