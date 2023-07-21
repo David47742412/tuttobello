@@ -2,7 +2,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
   OneToMany,
   PrimaryColumn,
 } from 'typeorm';
@@ -42,22 +41,33 @@ export class UserEntity {
   @Column({ type: 'float' })
   latitude: number;
 
-  @CreateDateColumn({ type: 'datetime', name: 'fch_cre' })
+  @CreateDateColumn({
+    type: 'datetime',
+    name: 'fch_cre',
+    select: false,
+    update: false,
+  })
   fchCre: string;
 
-  @CreateDateColumn({ type: 'datetime', name: 'fch_mod' })
+  @CreateDateColumn({ type: 'datetime', name: 'fch_mod', select: false })
   fchMod: string;
 
-  @Column({ type: 'varchar', name: 'wks_cre', length: 50 })
+  @Column({
+    type: 'varchar',
+    name: 'wks_cre',
+    length: 50,
+    select: false,
+    update: false,
+  })
   wksCre: string;
 
-  @Column({ type: 'varchar', name: 'wks_mod', length: 50 })
+  @Column({ type: 'varchar', name: 'wks_mod', length: 50, select: false })
   wksMod: string;
 
-  @Column({ type: 'varchar', length: 15 })
+  @Column({ type: 'varchar', length: 15, select: false })
   ipReq: string;
 
-  @Column({ type: 'boolean', name: 'flg_elm' })
+  @Column({ type: 'boolean', name: 'flg_elm', select: false })
   flgElm: boolean;
 
   //TODO ignore

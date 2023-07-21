@@ -19,9 +19,9 @@ export class AuthService {
     );
     const response: IResponse<UserEntity> = {
       message: '',
-      body: [],
       count: 0,
       statusCode: 200,
+      body: [],
     };
     try {
       if (!result) throw new Error('Exception');

@@ -7,14 +7,16 @@ import {
   Patch,
   Post,
   Req,
-  Res,
+  UseGuards,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import { getIpAndWks } from '../../../const/external.function';
+import { JwtGuard } from '../auth/guards/jwt.guard';
 
+@UseGuards(JwtGuard)
 @Controller('category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
@@ -33,21 +35,20 @@ export class CategoryController {
     return await this.categoryService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.categoryService.findOne(+id);
-  }
-
   @Patch(':id')
   update(
+    @Req() req: Request,
     @Param('id') id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    return this.categoryService.update(+id, updateCategoryDto);
+    getIpAndWks(updateCategoryDto, req);
+    return this.categoryService.update(id, updateCategoryDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.categoryService.remove(+id);
+  remove(@Req() req: Request, @Param('id') id: string) {
+    const deleteCategory = new UpdateCategoryDto();
+    getIpAndWks(deleteCategory, req);
+    return this.categoryService.remove(id, deleteCategory);
   }
 }

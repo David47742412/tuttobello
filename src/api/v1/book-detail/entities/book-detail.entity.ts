@@ -1,11 +1,17 @@
-import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { BookEntity } from '../../book/entities/book.entity';
 import { UserEntity } from '../../user/entities/user.entity';
 import { CategoryEntity } from '../../category/entities/category.entity';
 
 @Entity({ name: 'book_detail' })
 export class BookDetailEntity {
-  //TODO obligatorio para el orm
+  //TODO require for orm
   @PrimaryGeneratedColumn({ name: 'book_detail_id' })
   bookDetailId: number;
 
@@ -29,4 +35,7 @@ export class BookDetailEntity {
     foreignKeyConstraintName: 'fk_book_detail_category_id',
   })
   category: CategoryEntity;
+
+  @Column({ type: 'boolean' })
+  flgElm: boolean;
 }

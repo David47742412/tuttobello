@@ -15,15 +15,11 @@ export class CategoryService {
     return this._model.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+  update(id: string, updateCategoryDto: UpdateCategoryDto) {
+    return this._model.update(id, updateCategoryDto);
   }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  remove(id: string, deteleCategory: UpdateCategoryDto) {
+    return this._model.delete(id, deteleCategory);
   }
 }

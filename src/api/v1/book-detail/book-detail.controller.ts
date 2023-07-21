@@ -1,7 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { BookDetailService } from './book-detail.service';
 import { CreateBookDetailDto } from './dto/create-book-detail.dto';
 import { UpdateBookDetailDto } from './dto/update-book-detail.dto';
+import { FindBookDetailDto } from './dto/find-book-detail.dto';
 
 @Controller('book-detail')
 export class BookDetailController {
@@ -13,17 +23,15 @@ export class BookDetailController {
   }
 
   @Get()
-  findAll() {
-    return this.bookDetailService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.bookDetailService.findOne(+id);
+  findOne(@Query('filter') filter: FindBookDetailDto) {
+    return this.bookDetailService.findAll(filter);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBookDetailDto: UpdateBookDetailDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateBookDetailDto: UpdateBookDetailDto,
+  ) {
     return this.bookDetailService.update(+id, updateBookDetailDto);
   }
 
