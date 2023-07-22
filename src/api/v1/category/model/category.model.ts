@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { CategoryEntity } from '../entities/category.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Observable } from 'rxjs';
-import { CreateCategoryDto } from '../dto/create-category.dto';
+import { CategoryDto } from '../dto/create-category.dto';
 import { IResponse } from '../../interface/response-api.interface';
 import { v4 as uuid } from 'uuid';
 import { UpdateCategoryDto } from '../dto/update-category.dto';
@@ -36,7 +36,7 @@ export class CategoryModel {
     });
   }
 
-  insert(category: CreateCategoryDto) {
+  insert(category: CategoryDto) {
     const responseApi: IResponse<CategoryEntity> = {
       statusCode: 200,
       message: '',

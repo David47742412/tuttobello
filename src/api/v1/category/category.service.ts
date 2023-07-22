@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCategoryDto } from './dto/create-category.dto';
+import { CategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { CategoryModel } from './model/category.model';
 
@@ -7,7 +7,7 @@ import { CategoryModel } from './model/category.model';
 export class CategoryService {
   constructor(private readonly _model: CategoryModel) {}
 
-  create(createCategoryDto: CreateCategoryDto) {
+  create(createCategoryDto: CategoryDto) {
     return this._model.insert(createCategoryDto);
   }
 
