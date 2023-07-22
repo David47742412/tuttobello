@@ -1,19 +1,19 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
   Query,
-  UseGuards,
   Req,
+  Res,
+  UseGuards,
 } from '@nestjs/common';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { BookDetailService } from './book-detail.service';
 import { CreateBookDetailDto } from './dto/create-book-detail.dto';
-import { UpdateBookDetailDto } from './dto/update-book-detail.dto';
 import { FindBookDetailDto } from './dto/find-book-detail.dto';
 import { JwtGuard } from '../auth/guards/jwt.guard';
 import { getIpAndWks } from '../../../const/external.function';
@@ -41,13 +41,22 @@ export class BookDetailController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateBookDetailDto: UpdateBookDetailDto,
+    @Body() model: CreateBookDetailDto,
+    @Req() req: Request,
+    @Res() res: Response,
   ) {
-    return this.bookDetailService.update(+id, updateBookDetailDto);
+    const { userId } = req.user as any;
+    getIpAndWks(model, req);
+    this.bookDetailService.update(id, model, userId).subscribe((e) => {
+      res.send(e);
+    });
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.bookDetailService.remove(+id);
+  remove(@Req() req: Request, @Param('id') id: string) {
+    const model = new CreateBookDetailDto();
+    const { userId } = req.user as any;
+    getIpAndWks(model, req);
+    return this.bookDetailService.remove(id, model, userId);
   }
 }

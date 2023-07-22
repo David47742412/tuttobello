@@ -16,11 +16,11 @@ export class BookDetailService {
     return this._model.find(filter);
   }
 
-  update(id: number, updateBookDetailDto: UpdateBookDetailDto) {
-    return `This action updates a #${id} bookDetail`;
+  update(id: string, bookModel: CreateBookDetailDto, userId: string) {
+    return this._model.update(id, bookModel, userId);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} bookDetail`;
+  remove(id: string, bookModel: CreateBookDetailDto, userId: string) {
+    return this._model.delete(id, bookModel, userId);
   }
 }

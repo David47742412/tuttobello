@@ -67,6 +67,7 @@ export class BookDetailModel {
             wksCre: bookDetail.wks,
           })
           .then((e) => e);
+
         this._bookDetailRepository
           .insert({
             book: {
@@ -87,8 +88,62 @@ export class BookDetailModel {
             });
           });
       } catch (ex: any) {
+        queryRunner.rollbackTransaction().then((e) => e);
         responseApi.message =
           'Ha ocurrido un Error al momento de guardar los datos';
+        responseApi.statusCode = 500;
+        console.log(ex.message);
+        observer.next(responseApi);
+        observer.complete();
+      }
+    });
+  }
+
+  update(bookId: string, bookDetail: CreateBookDetailDto, usrId: string) {
+    const responseApi: IResponse<FindBookDetailDto> = {
+      statusCode: 200,
+      message: '',
+      count: 0,
+      body: [],
+    };
+    const queryRunner = this._connection.createQueryRunner();
+    return new Observable<IResponse<FindBookDetailDto>>((observer) => {
+      try {
+        queryRunner.startTransaction().then((e) => e);
+        this._bookDetailRepository
+          .findOne({
+            where: { book: { bookId } },
+          })
+          .then((e) => {
+            this._bookRepository
+              .update(bookId, {
+                ipReq: bookDetail.ipReq,
+                wksMod: bookDetail.wks,
+                name: bookDetail.nameBook,
+                description: bookDetail.descriptionBook,
+              })
+              .then(() => {
+                this._bookDetailRepository
+                  .update(e.bookDetailId, {
+                    category: {
+                      categoryId: bookDetail.categoryId,
+                    },
+                    user: {
+                      usrId,
+                    },
+                  })
+                  .then(() => {
+                    this.find({}).subscribe((e) => {
+                      observer.next(e);
+                      observer.complete();
+                    });
+                  });
+              });
+          });
+      } catch (ex: any) {
+        queryRunner.rollbackTransaction().then((e) => e);
+        responseApi.message =
+          'Ha ocurrido un Error al momento de actualizar los datos';
         responseApi.statusCode = 500;
         queryRunner.rollbackTransaction().then((e) => e);
         console.log(ex.message);
@@ -98,7 +153,54 @@ export class BookDetailModel {
     });
   }
 
-  //update() {}
-
-  //delete() {}
+  delete(bookId: string, bookDetail: CreateBookDetailDto, usrId: string) {
+    const responseApi: IResponse<FindBookDetailDto> = {
+      statusCode: 200,
+      message: '',
+      count: 0,
+      body: [],
+    };
+    const queryRunner = this._connection.createQueryRunner();
+    return new Observable<IResponse<FindBookDetailDto>>((observer) => {
+      try {
+        queryRunner.startTransaction().then((e) => e);
+        this._bookDetailRepository
+          .findOne({
+            where: { book: { bookId } },
+          })
+          .then((e) => {
+            this._bookRepository
+              .update(bookId, {
+                ipReq: bookDetail.ipReq,
+                wksMod: bookDetail.wks,
+                flgElm: true,
+              })
+              .then(() => {
+                this._bookDetailRepository
+                  .update(e.bookDetailId, {
+                    user: {
+                      usrId,
+                    },
+                    flgElm: true,
+                  })
+                  .then(() => {
+                    this.find({}).subscribe((e) => {
+                      observer.next(e);
+                      observer.complete();
+                    });
+                  });
+              });
+          });
+      } catch (ex: any) {
+        queryRunner.rollbackTransaction().then((e) => e);
+        responseApi.message =
+          'Ha ocurrido un Error al momento de actualizar los datos';
+        responseApi.statusCode = 500;
+        queryRunner.rollbackTransaction().then((e) => e);
+        console.log(ex.message);
+        observer.next(responseApi);
+        observer.complete();
+      }
+    });
+  }
 }
