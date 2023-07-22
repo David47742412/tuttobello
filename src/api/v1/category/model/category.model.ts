@@ -7,7 +7,6 @@ import { CreateCategoryDto } from '../dto/create-category.dto';
 import { IResponse } from '../../interface/response-api.interface';
 import { v4 as uuid } from 'uuid';
 import { UpdateCategoryDto } from '../dto/update-category.dto';
-import { response } from 'express';
 
 @Injectable({ scope: Scope.REQUEST })
 export class CategoryModel {

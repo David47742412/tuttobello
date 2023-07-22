@@ -11,7 +11,7 @@ export class CategoryService {
     return this._model.insert(createCategoryDto);
   }
 
-  async findAll() {
+  findAll() {
     return this._model.find();
   }
 

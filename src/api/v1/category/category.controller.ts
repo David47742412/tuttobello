@@ -31,8 +31,8 @@ export class CategoryController {
   }
 
   @Get()
-  async findAll() {
-    return await this.categoryService.findAll();
+  findAll() {
+    return this.categoryService.findAll();
   }
 
   @Patch(':id')
