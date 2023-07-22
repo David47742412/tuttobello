@@ -8,16 +8,12 @@ import { FindBookDetailDto } from './dto/find-book-detail.dto';
 export class BookDetailService {
   constructor(private readonly _model: BookDetailModel) {}
 
-  create(createBookDetailDto: CreateBookDetailDto) {
-    return 'This action adds a new bookDetail';
+  create(createBookDetailDto: CreateBookDetailDto, usrId: string) {
+    return this._model.insert(createBookDetailDto, usrId);
   }
 
   findAll(filter: FindBookDetailDto) {
     return this._model.find(filter);
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} bookDetail`;
   }
 
   update(id: number, updateBookDetailDto: UpdateBookDetailDto) {

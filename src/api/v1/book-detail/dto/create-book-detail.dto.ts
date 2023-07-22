@@ -1,5 +1,5 @@
 export class CreateBookDetailDto {
-  usrId: string;
+  nameBook: string;
   descriptionBook: string;
   categoryId: string;
   wks: string;
