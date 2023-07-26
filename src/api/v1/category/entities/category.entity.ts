@@ -56,7 +56,7 @@ export class CategoryEntity {
   @Column({ type: 'varchar', name: 'wks_mod', length: 50, select: false })
   wksMod?: string;
 
-  @Column({ type: 'varchar', length: 15, select: false })
+  @Column({ type: 'varchar', length: 30, select: false })
   ipReq?: string;
 
   @Column({ type: 'boolean', name: 'flg_elm', default: false, select: false })
