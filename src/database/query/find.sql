@@ -13,14 +13,14 @@ BEGIN
     SET lastName = TRIM(lastName);
     SET categoryName = TRIM(categoryName);
 
-    SELECT bK.bookId,
-           bK.name as       'bookName',
-           bK.description as 'bookDescription',
+    SELECT bk.bookId,
+           bk.name as       'bookName',
+           bk.description as 'bookDescription',
            usr.name as    'userName',
            usr.last_name as 'lastName',
            ct.description as 'categoryName'
     FROM book_detail bookD
-             JOIN book bK on bK.bookId = bookD.book_id
+             JOIN book bk on bk.bookId = bookD.book_id
              JOIN user usr ON bookD.user_id = usr.usr_id
              JOIN category ct ON bookD.category_id = ct.category_id
     WHERE bookD.flgElm = false
