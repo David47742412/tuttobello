@@ -1,3 +1,7 @@
+DROP PROCEDURAL IF EXISTS sp_find_book;
+                
+DELIMITER //
+
 create procedure sp_find_book(IN bookId varchar(36), IN bookName varchar(200),
                               IN bookDescription varchar(500), IN userName varchar(100),
                               IN lastName varchar(100), IN categoryName varchar(200))
@@ -10,8 +14,8 @@ BEGIN
     SET categoryName = TRIM(categoryName);
 
     SELECT bK.bookId,
-           bk.name as       'bookName',
-           bk.description as 'bookDescription',
+           bK.name as       'bookName',
+           bK.description as 'bookDescription',
            usr.name as    'userName',
            usr.last_name as 'lastName',
            ct.description as 'categoryName'
@@ -27,4 +31,6 @@ BEGIN
       AND (LENGTH(lastName) = 0 OR usr.last_name LIKE CONCAT('%', lastName, '%'))
       AND (LENGTH(categoryName) = 0 OR ct.description LIKE CONCAT('%', categoryName, '%'));
 
-END;
+END //
+    
+DELIMITER ;
